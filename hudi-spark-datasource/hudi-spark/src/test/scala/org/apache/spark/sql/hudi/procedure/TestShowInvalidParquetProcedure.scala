@@ -100,7 +100,7 @@ class TestShowInvalidParquetProcedure extends HoodieSparkProcedureTestBase {
       spark.sql(s"insert into $tableName select 1, 'a1', 10, 1000")
       spark.sql(s"insert into $tableName select 2, 'a2', 20, 1500")
 
-      val fs = FSUtils.getFs(basePath, spark.sparkContext.hadoopConfiguration)
+      val fs = HadoopFSUtils.getFs(basePath, spark.sparkContext.hadoopConfiguration)
       val invalidPath1 = new Path(basePath, "ts=1000/1.parquet")
       val out1 = fs.create(invalidPath1)
       out1.write(1)

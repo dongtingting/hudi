@@ -69,7 +69,7 @@ class ShowInvalidParquetProcedure extends BaseProcedure with ProcedureBuilder {
             case e: Exception =>
               isInvalid = e.getMessage.contains("is not a Parquet file")
               if (isInvalid && needDelete) {
-                val fs = FSUtils.getFs(filePath, serHadoopConf.get())
+                val fs = HadoopFSUtils.getFs(new Path(srcPath), storageConf.unwrap())
                 try {
                   isInvalid = !fs.delete(filePath, false)
                 } catch {
